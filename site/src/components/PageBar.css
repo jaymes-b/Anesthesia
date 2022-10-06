@@ -1,0 +1,17 @@
+.page-bar {
+  background-color: var(--dark-blue);
+  padding: 10px;
+  color: white;
+  display: flex;
+  gap: 10px;
+  font-size: 1.25rem;
+}
+.page-bar-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

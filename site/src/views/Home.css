@@ -1,0 +1,24 @@
+.list-items {
+  width: 100%;
+  border-spacing: 0;
+  font-size: 1.125rem;
+}
+.list-items a {
+  display: table;
+  width: 100%;
+  text-decoration: none;
+  color: black;
+}
+.list-items td {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.list-items a:nth-child(odd) {
+  background-color: var(--light-gray);
+}
+.list-items tr:hover, .list-items > tr:active {
+  background-color: var(--red);
+  color: white;
+}

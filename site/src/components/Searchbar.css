@@ -1,0 +1,17 @@
+.searchbar {
+  display: block;
+  outline: none;
+  border: none;
+  padding: 10px;
+  padding-left: 40px;
+  color: white;
+  border-radius: 20px;
+  margin: 15px auto;
+  width: 95%;
+  background: var(--dark-gray) url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/VisualEditor_-_Icon_-_Search-big_-_white.svg/32px-VisualEditor_-_Icon_-_Search-big_-_white.svg.png") 5px center no-repeat;
+  background-origin: padding-box;
+  font-size: 1rem;
+}
+.searchbar::placeholder {
+  color: #adadad;  
+}

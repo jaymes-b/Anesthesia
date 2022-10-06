@@ -1,0 +1,18 @@
+.navbar {
+  background-color: var(--dark-blue);
+  padding: 15px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.navbar a {
+  color: var(--muted-yellow);
+  display: flex;
+  justify-content: center;
+}
+.navbar a .active {
+  color: var(--yellow);
+}

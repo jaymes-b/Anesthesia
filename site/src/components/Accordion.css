@@ -1,0 +1,25 @@
+.accordion-label {
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 20px;
+  width: 100%;
+}
+.accordion-label:hover, .accordion-label:active, .active-accordion {
+  background-color: var(--yellow);
+}
+.open-accordion, .active-accordion .closed-accordion {
+  display: none;
+}
+.active-accordion .open-accordion, .closed-accordion {
+  display: block;
+}
+.accordion-panel {
+  display: none;
+  font-size: 0.8rem;
+}
