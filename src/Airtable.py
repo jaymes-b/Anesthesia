@@ -12,6 +12,8 @@ class Airtable:
     def getData(self): #returns data in form of a json
         response = requests.get(self.url, headers=self.headers)
         data = response.json()
+        with open("airtable_data.txt", "w") as json_file:
+            json_file.write(data)
         return data
 
     
