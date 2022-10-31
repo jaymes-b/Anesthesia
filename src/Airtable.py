@@ -15,13 +15,13 @@ class Airtable:
         data = response.json()
         with open("airtable_data.txt", "w") as json_file:
             json_file.write(str(data))
-        return data
+        return data #returns json file
 
     def getSurgeries(self):
         url = self.url + self.table_names[2]
         response = requests.get(url, headers=self.headers)
         data = response.json()
-        return data
+        return data #returns json file
 
     def getDataByQuery(self, query):
         output = {} #return type must be a dict
@@ -33,9 +33,10 @@ class Airtable:
             if query in column_data["Name"]:
                 output_rows.append(column_data)
         output["rows"] = output_rows
-        return output
+        return output #return dictionary {rows: []}
 
     def getSurgeryByKey(self, key):
+        key = key.lower()
         output = {} #return type must be a dict
         output_rows = []
         surgery_json = self.getSurgeries() #returns json file 
@@ -45,7 +46,7 @@ class Airtable:
             if key == column_data["Name"]:
                 output_rows.append(column_data)
         output["rows"] = output_rows
-        return output
+        return output #return dictionary {rows: []}
 
     def getSurgeryByBlock(self, block):
         output = {} #return type must be a dict
@@ -57,7 +58,7 @@ class Airtable:
             if block == column_data["Name"]:
                 output_rows.append(column_data)
         output["rows"] = output_rows
-        return output
+        return output #return dictionary {rows: []}
 
 
     
