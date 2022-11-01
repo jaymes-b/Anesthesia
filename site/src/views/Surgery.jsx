@@ -45,23 +45,20 @@ const Surgery = () => {
         <h3>Surgeon preferences</h3>
         {surgery.surgeonPrefs?.map(surgeon => {
           return (
-            <Accordion labelName={surgeon.surgeon}>
-              <ul>
-                {surgeon.blocks.length === 0 ? (
-                  <li>N/A</li>
-                ) : surgeon.blocks.map(block => {
-                return (
-                  <li>
-                    {block.preApproved ? "PRE-APPROVED" : null}
-                    {" "}
-                    {block.preOrPost.map(p => p)}
-                    {" "}
-                    {block.block.toLowerCase()}
-                  </li>
-                )
-                })}
-              </ul>
-            </Accordion>
+            <p>
+              <b>{surgeon.surgeon + ": "}</b>
+              {surgeon.blocks.length === 0 ? "N/A" :
+                surgeon.blocks.map(block => {
+                  return (
+                    <>
+                      {block.preApproved ? "PRE-APPROVED " : null}
+                      {block.preOrPost.map(p => p + " ")}
+                      {block.block.toLowerCase()}
+                    </>
+                  )
+                })
+              }
+            </p>
           )
         })}
       </div>

@@ -15,3 +15,6 @@
 .searchbar::placeholder {
   color: #adadad;  
 }
+.searchbar::-webkit-search-cancel-button {
+  filter: invert(1);
+}
