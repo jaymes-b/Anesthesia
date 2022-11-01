@@ -9,7 +9,7 @@ const Anatomy = () => {
       <div className="anatomy-gallery">
         <Card 
           imageUrl={"https://prod-images-static.radiopaedia.org/images/12509516/a4888249bacb0ebacd0fa7be38fd38_jumbo.jpg"}
-          bodyPart={"knee"}
+          bodyPart={"leg"}
         />
         <Card 
           imageUrl={"https://radsource.us/wp-content/uploads/2019/10/1C.jpg"}

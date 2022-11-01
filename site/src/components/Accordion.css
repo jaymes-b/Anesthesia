@@ -9,6 +9,7 @@
   cursor: pointer;
   padding: 20px;
   width: 100%;
+  text-align: left;
 }
 .accordion-label:active, .active-accordion {
   background-color: var(--yellow);

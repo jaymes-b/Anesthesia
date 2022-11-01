@@ -2,7 +2,7 @@
   background-color: var(--dark-blue);
   padding: 15px 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   position: fixed;
   left: 0;
   bottom: 0;
@@ -12,7 +12,20 @@
   color: var(--muted-yellow);
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
-.navbar a .active {
+.navbar .active{
   color: var(--yellow);
+}
+.navbar-label {
+  margin: 0;
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-label {
+    display: inline;
+  }
 }

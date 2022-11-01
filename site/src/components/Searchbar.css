@@ -18,3 +18,9 @@
 .searchbar::-webkit-search-cancel-button {
   filter: invert(1);
 }
+
+@media screen and (min-width: 768px) {
+  .searchbar {
+    width: 400px;
+  }
+}
