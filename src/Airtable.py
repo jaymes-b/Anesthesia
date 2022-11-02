@@ -6,7 +6,7 @@ class Airtable:
         api_key = "key46Xfxr0liGO20W"
         self.headers = {"Authorization": "Bearer " + api_key}
         self.table_names = ["body-part", "block", "surgery", "references", "surgeon-preference", "keywords", "surgeon"]
-        self.base_id = "appskv3EhFA9Bt8T7"
+        self.base_id = "app96HBB0IV295BWj"
         self.url = "https://api.airtable.com/v0/" + self.base_id + "/"
 
     def getData(self): #returns data in form of a json
@@ -17,13 +17,20 @@ class Airtable:
             json_file.write(str(data))
         return data #returns json file
 
-    def getSurgeries(self):
+    def getBlocks(self): #returns all blocks 
+        url = self.url + self.table_names[1]
+        response = requests.get(url, headers=self.headers)
+        data = response.json()
+        return data #returns json file
+
+
+    def getSurgeries(self): #returns all surgeries
         url = self.url + self.table_names[2]
         response = requests.get(url, headers=self.headers)
         data = response.json()
         return data #returns json file
 
-    def getDataByQuery(self, query):
+    def getSurgeriesByQuery(self, query):
         output = {} #return type must be a dict
         output_rows = []
         surgery_json = self.getSurgeries() #returns json file 
@@ -48,20 +55,23 @@ class Airtable:
         output["rows"] = output_rows
         return output #return dictionary {rows: []}
 
-    def getSurgeryByBlock(self, block):
+    def getBlocksbyBodyPart(self, body_part):
         output = {} #return type must be a dict
         output_rows = []
-        surgery_json = self.getSurgeries() #returns json file 
+        surgery_json = self.getBlocks() #returns json file 
         table_rows = surgery_json["records"]
         for row in table_rows:
             column_data = row["fields"]
-            if block == column_data["Name"]:
+            if body_part in column_data["Name (from body-part)"]:
                 output_rows.append(column_data)
         output["rows"] = output_rows
         return output #return dictionary {rows: []}
+    
+    def getBlocksbyQuery(self, query):
+        return
 
 
     
 if __name__ == "__main__":
     airtable = Airtable()
-    print(airtable.getSurgeries())
+    print(airtable.getBlocks())
