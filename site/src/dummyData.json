@@ -1,125 +1,67 @@
 {
   "blocks": [
     {
-      "block": "Interscalene single-shot",
-      "bodyPart": ["shoulder"],
-      "image": "urlHere",
-      "surgery": [
-        "Shoulder arthroplasty",
-        "Shoulder arthroscopy",
-        "Rotator cuff repair"
-      ]
-    },
-    {
-      "block": "Interscalene continuous catheter",
-      "bodyPart": ["shoulder"],
-      "image": "urlHere",
-      "surgery": []
-    },
-    {
-      "block": "Supraclavicular",
-      "bodyPart": ["hand"],
-      "image": "urlHere",
-      "surgery": []
-    },
-    {
-      "block": "Axillary",
-      "bodyPart": ["hand"],
-      "image": "urlHere",
-      "surgery": []
-    },
-    {
-      "block": "Infraclavicular",
-      "bodyPart": ["hand"],
-      "image": "urlHere",
-      "surgery": []
-    },
-    {
-      "block": "Adductor canal",
-      "bodyPart": ["leg"],
-      "image": "urlHere",
-      "surgery": [
-        "Ankle ORIF",
-        "Total knee arthorplasty",
-        "Knee arthroscopy",
-        "Knee ACL"
-      ]
-    },
-    {
-      "block": "Adductor canal catheter",
+      "block": "adductor canal single-shot",
+      "id": "ACSS",
       "bodyPart": ["leg", "foot"],
-      "image": "urlHere",
-      "surgery": [
-        "Total knee arthorplasty",
-        "Below the knee amputation"
+      "image": "https://v5.airtableusercontent.com/v1/10/10/1667347200000/90hrjvFLjNNpfGpjTmPoog/TbkVLrepc7mONtbdCA4NwYBNq-z21WVju_YPsRftXl0Hj4lxAFJkRXwwcEKuEIZr13jJCMzxMa7rnsvcJPtbtQ/G_Lp0b76ndIsbS3r2UQJCntVlwJwNmf71fbVqXncbyQ",
+      "surgeries": [
+        "TKA",
+        "KA",
+        "KACLR",
+        "KA-BK"
+      ],
+      "references": [
+        {
+          "title": "Jæger, Pia, et al. \"Adductor canal block versus femoral nerve block for analgesia after total knee arthroplasty: a randomized, double-blind study.\" (2013): 526-532",
+          "link": "https://pubmed.ncbi.nlm.nih.gov/24121608/"
+        }
       ]
     },
     {
-      "block": "Femoral",
-      "bodyPart": ["foot"],
-      "image": "urlHere",
-      "surgery": []
-    },
-    {
-      "block": "Sciatic-popliteal",
-      "bodyPart": ["foot"],
-      "image": "urlHere",
-      "surgery": []
-    },
-    {
-      "block": "Thoracic epidural",
-      "bodyPart": ["abdomen"],
-      "image": "urlHere",
-      "surgery": [
-        "Exploratory laparotomy",
-        "Whipple",
-        "Hepatic resection",
-        "Open prostatectomy"
+      "block": "adductor canal continuous catheter",
+      "id": "ACCC",
+      "bodyPart": ["leg", "foot"],
+      "image": "https://v5.airtableusercontent.com/v1/10/10/1667347200000/90hrjvFLjNNpfGpjTmPoog/TbkVLrepc7mONtbdCA4NwYBNq-z21WVju_YPsRftXl0Hj4lxAFJkRXwwcEKuEIZr13jJCMzxMa7rnsvcJPtbtQ/G_Lp0b76ndIsbS3r2UQJCntVlwJwNmf71fbVqXncbyQ",
+      "surgeries": [
+        "TKA",
+        "KA-BK"
+      ],
+      "references": [
+        {
+          "title": "Hanson, Neil A., et al. \"Continuous ultrasound-guided adductor canal block for total knee arthroplasty: a randomized, double-blind trial.\" (2014): 1370-1377",
+          "link": "https://pubmed.ncbi.nlm.nih.gov/24842182/"
+        }
       ]
     },
     {
-      "block": "Transversus abdominis plane",
-      "bodyPart": ["abdomen"],
-      "image": "urlHere",
-      "surgery": [
-        "Ventral hernia repair",
-        "Renal transplant"
-      ]
-    },
-    {
-      "block": "Fascia iliaca",
+      "block": "fascia iliaca single-shot",
+      "id": "FISS",
       "bodyPart": ["hip"],
-      "image": "urlHere",
-      "surgery": [
-        "Hip fracture ORIF"
+      "surgeries": [
+        "HFORIF"
+      ],
+      "references":[ 
+        {
+          "title": "Haines, Lawrence, et al. \"Ultrasound-guided fascia iliaca compartment block for hip fractures in the emergency department.\" The Journal of emergency medicine 43.4 (2012): 692-697.",
+          "link": "https://pubmed.ncbi.nlm.nih.gov/22494596/"
+        },
+        {
+          "title": "Generic Second Reference",
+          "link": "https://google.com"
+        }
       ]
     }
   ],
   "surgeries": [
     {
-      "surgery": "Total knee arthroplasty",
-      "bodyPart": "knee",
+      "surgery": "total knee arthroplasty",
+      "bodyPart": "leg",
       "id": "TKA",
-      "image": "https://consultqd.clevelandclinic.org/wp-content/uploads/sites/2/2017/08/17-ORT-1166-Mont-Hero-Image-650x450pxl.jpg",
+      "image": "https://v5.airtableusercontent.com/v1/10/10/1667347200000/TevueH-1Shkz_RNJ1Nx3VA/EvywYOGmjTE1aG9zaHvfdyH47fuJF1OW89mG-HD5kE5S9ImvtjK9bl3ApOp87L0oUg2Kv1XJFcTGxHLmuQZDjA/RVaize19L15MaJjzcaXw2v72ThF4Y31KXT6l-XvPhHw",
       "blocks": [
-        {
-          "block": "Adductor canal",
-          "links": [
-            {
-              "title": "Jæger, Pia, et al. \"Adductor canal block versus femoral nerve block for analgesia after total knee arthroplasty: a randomized, double-blind study.\" (2013): 526-532",
-              "link": "https://pubmed.ncbi.nlm.nih.gov/24121608/"
-            }
-          ]
-        },
-        {
-          "block": "Adductor canal catheter",
-          "links": [
-            {
-              "title": "Hanson, Neil A., et al. \"Continuous ultrasound-guided adductor canal block for total knee arthroplasty: a randomized, double-blind trial.\" (2014): 1370-1377",
-              "link": "https://pubmed.ncbi.nlm.nih.gov/24842182/"
-            }
-          ]
-        }
+        "ACSS",
+        "ACCC"
       ],
       "surgeonPrefs": [
         {
@@ -128,7 +70,7 @@
             {
               "preApproved": true,
               "preOrPost": ["POST-OP"],
-              "block": "Adductor canal catheter"
+              "block": "adductor canal continuous catheter"
             }
           ],
           "notes": "no Pajunk E-Cath for preop catheters"
@@ -136,28 +78,12 @@
       ]
     },
     {
-      "surgery": "Hip fracture ORIF",
+      "surgery": "hip fracture ORIF",
       "bodyPart": "hip",
-      "id": "HFO",
-      "image": "data:image/jpeg;base64,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",
+      "id": "HFORIF",
+      "image": "https://v5.airtableusercontent.com/v1/10/10/1667347200000/Q22hRL92bC8-0UfOmFT56w/CEpZMHmFBFTzidLtVVjsxjfj0IxohrTzaKokXq3wnvx8yZyDfUfmEVBR22DwGT0l_Uoj-e20qn4PGMBmOeMKNQ/Cqtchm59Lah77aAHL6SRt1maXszuIblU6f2qOmAZ3S8",
       "blocks": [
-        {
-          "block":"Fascia iliaca",
-          "links": [
-            {
-              "title": "Haines, Lawrence, et al. \"Ultrasound-guided fascia iliaca compartment block for hip fractures in the emergency department.\" The Journal of emergency medicine 43.4 (2012): 692-697",
-              "link": "https://pubmed.ncbi.nlm.nih.gov/22494596/"
-            },
-            {
-              "title": "Generic Second Reference",
-              "link": "https://google.com"
-            }
-          ]
-        },
-        {
-          "block":"Spinal",
-          "links": []
-        }
+        "FISS"
       ],
       "surgeonPrefs": [
         {
@@ -166,7 +92,7 @@
             {
               "preApproved": true,
               "preOrPost": ["PRE-OP"],
-              "block": "Fascia iliaca"
+              "block": "fascia iliaca single-shot"
             }
           ],
           "notes": ""
@@ -177,7 +103,7 @@
             {
               "preApproved": true,
               "preOrPost": ["PRE-OP"],
-              "block": "Fascia iliaca"
+              "block": "fascia iliaca single-shot"
             }
           ],
           "notes": ""
@@ -188,7 +114,7 @@
             {
               "preApproved": true,
               "preOrPost": ["PRE-OP"],
-              "block": "Fascia iliaca"
+              "block": "fascia iliaca single-shot"
             }
           ],
           "notes": ""
@@ -196,7 +122,7 @@
       ]
     },
     {
-      "surgery": "Renal transplant",
+      "surgery": "renal transplant",
       "bodyPart": "abdomen",
       "id": "RT",
       "image": "https://pubs.rsna.org/cms/10.1148/rg.2019190096/asset/images/medium/rg.2019190096.fig1c.gif",

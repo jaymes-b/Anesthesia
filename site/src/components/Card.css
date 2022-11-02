@@ -18,3 +18,9 @@
 .card-image > img {
   width: 100%;
 }
+
+@media (hover: hover) {
+  .card:hover {
+    background-color: var(--red);
+  }
+}
