@@ -14,7 +14,9 @@ def handle_home():
 def handle_search():
     output = {}
     query = request.args.get("query") #query = knee
-    return airtable.getSurgeriesByQuery(query)
+    output["surgeries_data"] = airtable.getSurgeriesByQuery(query)
+    output["blocks_data"] = airtable.getBlocksbyQuery(query)
+    return output
 
 @app.route('/surgery') #handles getting surgery details
 def handle_surgery():

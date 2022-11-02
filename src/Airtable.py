@@ -33,12 +33,32 @@ class Airtable:
     def getSurgeriesByQuery(self, query):
         output = {} #return type must be a dict
         output_rows = []
-        surgery_json = self.getSurgeries() #returns json file 
-        table_rows = surgery_json["records"]
+        surgeries_json = self.getSurgeries()
+        table_rows = surgeries_json["records"]
+        found = False
         for row in table_rows:
+            found = False
             column_data = row["fields"]
-            if query in column_data["Name"]:
-                output_rows.append(column_data)
+            if "Name" in column_data:
+                if query in column_data["Name"]:
+                    output_rows.append(column_data)
+                    print(query, column_data["Name"])
+                    continue
+            if "Name (from surgeries)" in column_data:
+                for surgery_name in column_data["Name (from surgeries)"]:
+                    if query in surgery_name:
+                        output_rows.append(column_data)
+                        print(query, column_data["Name (from surgeries)"])
+                        found = True
+                        break
+            if found:
+                continue
+            if "Name (from body-part)" in column_data:
+                for body_part in column_data["Name (from body-part)"]:
+                    if query in body_part:
+                        output_rows.append(column_data)
+                        print(query, column_data["Name (from body-part)"])
+                        break
         output["rows"] = output_rows
         return output #return dictionary {rows: []}
 
@@ -68,10 +88,44 @@ class Airtable:
         return output #return dictionary {rows: []}
     
     def getBlocksbyQuery(self, query):
-        return
+        output = {} #return type must be a dict
+        output_rows = []
+        blocks_json = self.getBlocks()
+        table_rows = blocks_json["records"]
+        found = False
+        for row in table_rows:
+            found = False
+            column_data = row["fields"]
+            if "Name" in column_data:
+                if query in column_data["Name"]:
+                    output_rows.append(column_data)
+                    print(query, column_data["Name"])
+                    continue
+            if "Name (from surgeries)" in column_data:
+                for surgery_name in column_data["Name (from surgeries)"]:
+                    if query in surgery_name:
+                        output_rows.append(column_data)
+                        print(query, column_data["Name (from surgeries)"])
+                        found = True
+                        break
+            if found:
+                continue
+            if "Name (from body-part)" in column_data:
+                for body_part in column_data["Name (from body-part)"]:
+                    if query in body_part:
+                        output_rows.append(column_data)
+                        print(query, column_data["Name (from body-part)"])
+                        break
+        output["rows"] = output_rows
+        return output #return dictionary {rows: []}
+
+
 
 
     
 if __name__ == "__main__":
     airtable = Airtable()
-    print(airtable.getBlocks())
+    # print(airtable.getBlocksbyQuery("knee"))
+    print(airtable.getSurgeriesByQuery("knee"))
+    # airtable.getBlocksbyQuery("knee")
+    # print(airtable.getBlocks())
