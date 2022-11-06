@@ -71,7 +71,7 @@ class Airtable:
         table_rows = surgery_json["records"]
         for row in table_rows:
             column_data = row["fields"]
-            if key in column_data["Name"]:
+            if ("Name" in column_data) and (key in column_data["Name"]):
                 output_rows.append(column_data)
         output["rows"] = output_rows
         return output #return dictionary {rows: []}

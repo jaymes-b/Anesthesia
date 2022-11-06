@@ -1,11 +1,11 @@
 from flask import Flask, request
-from flask_cors import CORS
+# from flask_cors import CORS
 from Airtable import *
 import json
 
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 airtable = Airtable()
 
 @app.route("/")
