@@ -41,14 +41,14 @@ class Airtable:
             column_data = row["fields"]
             if "Name" in column_data:
                 if query in column_data["Name"]:
-                    output_rows.append(column_data)
-                    print(query, column_data["Name"])
+                    output_rows.append(column_data["Name"])
+                    # print(query, column_data["Name"])
                     continue
             if "Name (from surgeries)" in column_data:
                 for surgery_name in column_data["Name (from surgeries)"]:
                     if query in surgery_name:
-                        output_rows.append(column_data)
-                        print(query, column_data["Name (from surgeries)"])
+                        output_rows.append(column_data["Name"])
+                        # print(query, column_data["Name (from surgeries)"])
                         found = True
                         break
             if found:
@@ -56,8 +56,8 @@ class Airtable:
             if "Name (from body-part)" in column_data:
                 for body_part in column_data["Name (from body-part)"]:
                     if query in body_part:
-                        output_rows.append(column_data)
-                        print(query, column_data["Name (from body-part)"])
+                        output_rows.append(column_data["Name"])
+                        # print(query, column_data["Name (from body-part)"])
                         break
         output["rows"] = output_rows
         return output #return dictionary {rows: []}
@@ -98,14 +98,14 @@ class Airtable:
             column_data = row["fields"]
             if "Name" in column_data:
                 if query in column_data["Name"]:
-                    output_rows.append(column_data)
-                    print(query, column_data["Name"])
+                    output_rows.append(column_data["Name"])
+                    # print(query, column_data["Name"])
                     continue
             if "Name (from surgeries)" in column_data:
                 for surgery_name in column_data["Name (from surgeries)"]:
                     if query in surgery_name:
-                        output_rows.append(column_data)
-                        print(query, column_data["Name (from surgeries)"])
+                        output_rows.append(column_data["Name"])
+                        # print(query, column_data["Name (from surgeries)"])
                         found = True
                         break
             if found:
@@ -113,8 +113,8 @@ class Airtable:
             if "Name (from body-part)" in column_data:
                 for body_part in column_data["Name (from body-part)"]:
                     if query in body_part:
-                        output_rows.append(column_data)
-                        print(query, column_data["Name (from body-part)"])
+                        output_rows.append(column_data["Name"])
+                        # print(query, column_data["Name (from body-part)"])
                         break
         output["rows"] = output_rows
         return output #return dictionary {rows: []}
