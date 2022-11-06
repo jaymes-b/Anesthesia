@@ -31,6 +31,7 @@ class Airtable:
         return data #returns json file
 
     def getSurgeriesByQuery(self, query):
+        query = query.lower()
         output = {} #return type must be a dict
         output_rows = []
         surgeries_json = self.getSurgeries()
@@ -76,6 +77,7 @@ class Airtable:
         return output #return dictionary {rows: []}
 
     def getBlocksbyBodyPart(self, body_part):
+        body_part = body_part.lower()
         output = {} #return type must be a dict
         output_rows = []
         surgery_json = self.getBlocks() #returns json file 
@@ -88,6 +90,7 @@ class Airtable:
         return output #return dictionary {rows: []}
     
     def getBlocksbyQuery(self, query):
+        query = query.lower()
         output = {} #return type must be a dict
         output_rows = []
         blocks_json = self.getBlocks()

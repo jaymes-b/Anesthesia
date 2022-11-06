@@ -12,7 +12,7 @@ airtable = Airtable()
 def handle_start():
     return "hello"
 
-@app.route("/api/home")
+@app.route("/api/home") #returns list of available surgeries for the home page
 def handle_home():
     surgery_names = {}
     surgeries_list = []
@@ -29,19 +29,19 @@ def handle_home():
 @app.route('/api/search') # returns both names of blocks and surgeries relevant to query
 def handle_search():
     output = {}
-    query = request.args.get("query").lower() #query = knee
+    query = request.args.get("query") #query = knee
     output["surgeries_data"] = airtable.getSurgeriesByQuery(query)
     output["blocks_data"] = airtable.getBlocksbyQuery(query)
     return output
 
 @app.route('/api/surgery') #handles getting surgery details
 def handle_surgery():
-    surgery_name = request.args.get("surgeryName").lower() #SurgeryName = knee ACL repair
+    surgery_name = request.args.get("surgeryName") #SurgeryName = knee ACL repair
     return airtable.getSurgeryByKey(surgery_name)
 
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
 def handle_block():
-    body_part = request.args.get("bodyPart").lower() #query = knee
+    body_part = request.args.get("bodyPart") #query = knee
     return airtable.getBlocksbyBodyPart(body_part)
 
 
