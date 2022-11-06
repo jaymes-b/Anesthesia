@@ -7,8 +7,22 @@ app = Flask(__name__)
 airtable = Airtable()
 
 @app.route("/")
-def handle_home():
+def handle_start():
     return "hello"
+
+@app.route("/home")
+def handle_home():
+    surgery_names = {}
+    surgeries_list = []
+    surgery_json =  airtable.getSurgeries()
+    table_rows = surgery_json["records"]
+    for row in table_rows:
+        column_data = row["fields"]
+        if "Name" in column_data:
+            surgeries_list.append(column_data["Name"])
+    surgery_names["surgeries"] = surgeries_list
+    return surgery_names
+
 
 @app.route('/search') # returns both blocks and surgeries
 def handle_search():

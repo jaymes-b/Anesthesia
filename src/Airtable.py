@@ -126,6 +126,6 @@ class Airtable:
 if __name__ == "__main__":
     airtable = Airtable()
     # print(airtable.getBlocksbyQuery("knee"))
-    print(airtable.getSurgeriesByQuery("knee"))
+    print(airtable.getSurgeries())
     # airtable.getBlocksbyQuery("knee")
     # print(airtable.getBlocks())
