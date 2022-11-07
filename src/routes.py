@@ -37,7 +37,30 @@ def handle_search():
 @app.route('/api/surgery') #handles getting surgery details
 def handle_surgery():
     surgery_name = request.args.get("surgeryName") #SurgeryName = knee ACL repair
-    return airtable.getSurgeryByKey(surgery_name)
+    surgery_data = airtable.getSurgeryByKey(surgery_name)
+    surgeron_prefs = airtable.getSurgereonPreferences()
+    for i in range(len(surgery_data["rows"])):
+        print("starting rows loop")
+        row = surgery_data["rows"][i]
+            
+        if "surgeon-preference-text" in row:
+            preferences = [] #list of preference indexes
+            for char in row["surgeon-preference-text"]:
+                if char.isnumeric():
+                    preferences.append(int(char))
+            print("going into prefere")
+            for pref_index in preferences:
+                print(pref_index)
+                for surgeon_pref_row in surgeron_prefs["rows"]:
+                    if surgeon_pref_row["Index"] == pref_index:
+                        if "surgeon-pref-data" not in surgery_data["rows"][i]:
+                            surgery_data["rows"][i]["surgeon-pref-data"] = []
+                        surgery_data["rows"][i]["surgeon-pref-data"].append(surgeon_pref_row)
+    return surgery_data 
+
+
+
+    
 
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
 def handle_block():
@@ -47,4 +70,4 @@ def handle_block():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run()

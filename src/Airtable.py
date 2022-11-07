@@ -24,11 +24,26 @@ class Airtable:
         return data #returns json file
 
 
+
     def getSurgeries(self): #returns all surgeries
         url = self.url + self.table_names[2]
         response = requests.get(url, headers=self.headers)
         data = response.json()
         return data #returns json file
+
+    def getSurgereonPreferences(self):
+        url = self.url + self.table_names[4]
+        response = requests.get(url, headers=self.headers)
+        data = response.json()
+        output = {} #return type must be a dict
+        output_rows = []
+        table_rows = data["records"]
+        for row in table_rows:
+            column_data = row["fields"]
+            output_rows.append(column_data)
+        output["rows"] = output_rows
+        # print(type(output["rows"][0]["Index"]))
+        return output #returns json file
 
     def getSurgeriesByQuery(self, query):
         query = query.lower()
@@ -129,6 +144,6 @@ class Airtable:
 if __name__ == "__main__":
     airtable = Airtable()
     # print(airtable.getBlocksbyQuery("knee"))
-    print(airtable.getSurgeries())
+    print(airtable.getSurgereonPreferences())
     # airtable.getBlocksbyQuery("knee")
     # print(airtable.getBlocks())
