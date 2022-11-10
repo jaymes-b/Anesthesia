@@ -34,7 +34,7 @@ const Searchbar = ({ searchTerm }) => {
       type="search"
       placeholder="Search term..."
       className="searchbar"
-      value={keyword === undefined ? null : keyword}
+      value={keyword === undefined ? "" : keyword}
       onChange={searchOnChange}
       onKeyDown={searchOnKeyDown}
     />
