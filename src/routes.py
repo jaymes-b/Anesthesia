@@ -26,12 +26,30 @@ def handle_home():
     return surgery_names
 
 
+@app.route("/api/surgeons") #returns list of available surgeries for the home page
+def handle_surgeons():
+    return airtable.getSurgeonNames()
+
+@app.route("/api/blocks") #returns list of available surgeries for the home page
+def handle_blocks():
+    return airtable.getBlockNames()
+
+
 @app.route('/api/search') # returns both names of blocks and surgeries relevant to query
 def handle_search():
     output = {}
     query = request.args.get("query") #query = knee
     output["surgeries_data"] = airtable.getSurgeriesByQuery(query)
     output["blocks_data"] = airtable.getBlocksbyQuery(query)
+    output["surgeons_data"] = airtable.getSurgeonNamesByQuery(query)
+    return output
+
+@app.route('/api/search/surgeon') # returns both names of blocks and surgeries basedo n surgeon name
+def handle_surgeon_name():
+    output = {}
+    surgeon_name = request.args.get("surgeonName")
+    output["block_names"] = airtable.getBlockNamesBySurgeon(surgeon_name)
+    output["surgery_names"] = airtable.getSurgeryNamesBySurgeon(surgeon_name)
     return output
 
 @app.route('/api/surgery') #handles getting surgery details
@@ -42,20 +60,26 @@ def handle_surgery():
     for i in range(len(surgery_data["rows"])):
         print("starting rows loop")
         row = surgery_data["rows"][i]
-            
+        blocks = surgery_data["rows"][i]["Name (from block)"]
+        references = surgery_data["rows"][i]["Name (from references)"]
+        surgery_data["rows"][i]["linked_references"] = list( zip(blocks, references))
         if "surgeon-preference-text" in row:
             preferences = [] #list of preference indexes
             for char in row["surgeon-preference-text"]:
                 if char.isnumeric():
                     preferences.append(int(char))
             print("going into prefere")
+            #compiles list of preferences for surgeries
             for pref_index in preferences:
                 print(pref_index)
                 for surgeon_pref_row in surgeron_prefs["rows"]:
                     if surgeon_pref_row["Index"] == pref_index:
                         if "surgeon-pref-data" not in surgery_data["rows"][i]:
                             surgery_data["rows"][i]["surgeon-pref-data"] = []
-                        surgery_data["rows"][i]["surgeon-pref-data"].append(surgeon_pref_row)
+                        surgery_data["rows"][i]["surgeon-pref-data"].append(surgeon_pref_row) #matches them with surgeon preference rows 
+    for i in range(len(surgery_data["rows"])):
+        row = surgery_data["rows"][i]
+
     return surgery_data 
 
 
