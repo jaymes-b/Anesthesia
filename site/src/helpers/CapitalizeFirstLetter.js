@@ -1,6 +1,7 @@
 export function CapitalizeFirstLetter(string) {
-  if (string === "" || string === null || string === undefined) {
+  try {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  } catch {
     return "";
   }
-  return string.charAt(0).toUpperCase() + string.slice(1);
 }
