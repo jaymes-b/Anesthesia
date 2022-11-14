@@ -22,3 +22,6 @@
   background-color: var(--red);
   color: white;
 }
+.category-heading {
+  margin-left: 10px;
+}

@@ -65,13 +65,13 @@ const Search = () => {
   const searchPage = () => {
     return (
       <>
-        <h3>Surgeries</h3>
+        <h3 className="category-heading">Surgeries</h3>
         <table className="list-items">
-          {surgeryList.map(surgery => listSurgeries(surgery))}
+          {surgeryList.length === 0 ? "N/A" : surgeryList.map(surgery => listSurgeries(surgery))}
         </table>
-        <h3>Blocks</h3>
+        <h3 className="category-heading">Blocks</h3>
         <table className="list-items">
-          {blockList.map(block => listBlocks(block))}
+          {blockList.length === 0 ? "N/A" : blockList.map(block => listBlocks(block))}
         </table>
       </>
     )
