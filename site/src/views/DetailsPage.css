@@ -10,11 +10,15 @@
 }
 .accordion-panel a {
   margin: 0 5px;
+  color: var(--red);
 }
 
 @media screen and (min-width: 768px) {
   .details-page {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .details-page li {
+    font-size: 1rem;
   }
   .page-bar, .surgery-blocks, .block-references {
     grid-column: 1 / span 2;
@@ -24,7 +28,7 @@
     grid-column: 2;
   }
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1024px) {
   .details-page {
     grid-template-columns: 1fr 2fr;
   }
