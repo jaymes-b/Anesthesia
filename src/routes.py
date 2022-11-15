@@ -56,7 +56,7 @@ def handle_surgeon_name():
 def handle_surgery():
     surgery_name = request.args.get("surgeryName") #SurgeryName = knee ACL repair
     surgery_data = airtable.getSurgeryByKey(surgery_name)
-    surgeron_prefs = airtable.getSurgereonPreferences()
+    surgeron_prefs = airtable.getSurgeonPreferences()
     for i in range(len(surgery_data["rows"])):
         print("starting rows loop")
         row = surgery_data["rows"][i]
