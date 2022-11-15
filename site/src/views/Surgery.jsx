@@ -15,7 +15,6 @@ const Surgery = () => {
   const getSurgery = async () => {
     await axios.get(`http://127.0.0.1:5000/api/surgery?surgeryName=${surgeryId}`)
       .then(res => {
-        console.log(res)
         setSurgery(res.data.rows[0] || {});
       })
   }
@@ -32,24 +31,19 @@ const Surgery = () => {
           <img src={"Attachments" in surgery ? surgery.Attachments[0]?.url : ""} className="details-image" alt={surgery.Name}/>
           <div className="surgery-blocks">
             <h3>Block selection</h3>
-            {surgery["Name (from block)"]?.map(block => {
-              // const blockInfo = DUMMY_DATA.blocks.find(b => b.id === block);
+            {surgery.linked_references?.map(block => {
               return (
-                <Accordion labelName={CapitalizeFirstLetter(block)}>
+                <Accordion labelName={CapitalizeFirstLetter(block[0])}>
                   <ul>
-                    {block.references?.length === 0 ? (
-                      <li>N/A</li>
-                    ) : block.references?.map(ref => {
-                    return (
+                    {block[1] ? (
                       <li>
-                        {ref.title}
-                        <a href={ref.link} target="_blank" rel="noreferrer">
+                        {block[1]}
+                        <a href="#" target="_blank" rel="noreferrer">
                           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                         </a>
                       </li>
-                    )
-                    })}
-                    <Link to={`/block/${block}`}>
+                    ) : <li>N/A</li>}
+                    <Link to={`/block/${block[0]}`}>
                       <li>More information</li>
                     </Link>
                   </ul>
@@ -59,21 +53,21 @@ const Surgery = () => {
           </div>
           <div className="surgery-preferences">
             <h3>Surgeon preferences</h3>
-            {surgery["surgeon-name (from surgeon-preference)"]?.map(surgeon => {
+            {surgery["surgeon-pref-data"]?.filter(pref => pref["surgeon-name"] !== "NOTES").map(pref => {
               return (
                 <p>
-                  <b>{surgeon + ": "}</b>
-                  {surgeon.blocks?.length === 0 ? "N/A" :
-                    surgeon.blocks?.map(block => {
-                      return (
-                        <>
-                          {block.preApproved ? "PRE-APPROVED " : null}
-                          {block.preOrPost.map(p => p + " ")}
-                          {block.block.toLowerCase()}
-                        </>
-                      )
-                    })
-                  }
+                  <b>{pref["surgeon-name"] + ": "}</b>
+                  {pref["pre-approved"] ? "PRE-APPROVED " : null}
+                  {pref.timing + " "}
+                  {pref["Name (from block)"]}
+                </p>
+              )
+            })}
+            {surgery["surgeon-pref-data"]?.filter(pref => pref["surgeon-name"] === "NOTES").map(pref => {
+              return (
+                <p>
+                  <b>{pref["surgeon-name"] + ": "}</b>
+                  {pref.Notes}
                 </p>
               )
             })}

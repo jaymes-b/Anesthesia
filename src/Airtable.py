@@ -9,7 +9,12 @@ class Airtable:
         self.base_id = "app96HBB0IV295BWj"
         self.url = "https://api.airtable.com/v0/" + self.base_id + "/"
 
-    def getData(self): #returns data in form of a json
+    def getData(self) -> dict: #returns data in form of a json
+        """Gets body part information from airtable
+
+        Returns:
+            dict: body part information in JSON format
+        """
         url = self.url + self.table_names[0]
         response = requests.get(url, headers=self.headers)
         data = response.json()
@@ -17,25 +22,45 @@ class Airtable:
             json_file.write(str(data))
         return data #returns json file
 
-    def getBlocks(self): #returns all blocks 
+    def getBlocks(self) -> dict: #returns all blocks 
+        """Gets block information from airtable
+
+        Returns:
+            dict: block information in JSON format
+        """
         url = self.url + self.table_names[1]
         response = requests.get(url, headers=self.headers)
         data = response.json()
         return data #returns json file
 
-    def getSurgeries(self): #returns all surgeries
+    def getSurgeries(self) -> dict: #returns all surgeries
+        """Gets surgery information from airtable
+
+        Returns:
+            dict: surgery information in JSON format
+        """
         url = self.url + self.table_names[2]
         response = requests.get(url, headers=self.headers)
         data = response.json()
         return data #returns json file
 
-    def getSurgeons(self): #returns names of surgeons
+    def getSurgeons(self) -> dict: #returns names of surgeons
+        """Gets surgeon information from airtable
+
+        Returns:
+            dict: surgeon information in JSON format
+        """
         url = self.url + self.table_names[6]
         response = requests.get(url, headers=self.headers)
         data = response.json()
         return data #returns json file
 
     def getSurgeonNames(self): #parses for a list of surgeon names
+        """Parses JSON output of getSurgeons() to get surgeon names
+
+        Returns:
+            dict: dict of surgeon names
+        """
         output = {}
         names = []
         data = self.getSurgeons()
@@ -49,6 +74,11 @@ class Airtable:
         return output
 
     def getBlockNames(self): #returns the names of all blocks
+        """Parses JSON output of getBlocks() to get block names
+
+        Returns:
+            dict: dict of block names
+        """
         output = {}
         block_names = []
         data = self.getBlocks()
@@ -61,7 +91,12 @@ class Airtable:
         output["block_names"] = block_names
         return output
 
-    def getSurgereonPreferences(self):
+    def getSurgeonPreferences(self) -> dict:
+        """Gets surgeon preference information from airtable
+
+        Returns:
+            dict: surgeon preference information in JSON format
+        """
         url = self.url + self.table_names[4]
         response = requests.get(url, headers=self.headers)
         data = response.json()
@@ -76,6 +111,14 @@ class Airtable:
         return output #returns json file
 
     def getSurgeriesByQuery(self, query):
+        """Searches the getSurgeries() result for the provided term
+
+        Args:
+            query (str): term the user is searching for
+
+        Returns:
+            dict: contains surgeries matching the query
+        """
         query = query.lower()
         output = {} #return type must be a dict
         output_rows = []
@@ -119,6 +162,14 @@ class Airtable:
         return output #return dictionary {rows: []}
 
     def getSurgeryByKey(self, key):
+        """Gets surgery information from airtable
+
+        Args:
+            key (str): surgery key specified by suser
+
+        Returns:
+            dict: surgery information in JSON format
+        """
         key = key.lower()
         output = {} #return type must be a dict
         output_rows = []
@@ -132,6 +183,14 @@ class Airtable:
         return output #return dictionary {rows: []}
 
     def getBlocksbyBodyPart(self, body_part):
+        """Gets all blocks that pertain to the provided body part
+
+        Args:
+            body_part (str): user provided body part
+
+        Returns:
+            dict: dict of blocks in JSON format
+        """
         body_part = body_part.lower()
         output = {} #return type must be a dict
         output_rows = []
@@ -148,6 +207,14 @@ class Airtable:
         pass
     
     def getBlocksbyQuery(self, query):
+        """Gets all blocks that match the searched term
+
+        Args:
+            query (str): user searched term
+
+        Returns:
+            dict: dict of blocks in JSON format
+        """
         query = query.lower()
         output = {} #return type must be a dict
         output_rows = []
@@ -191,6 +258,14 @@ class Airtable:
         return output #return dictionary {rows: []}
 
     def getSurgeonNamesByQuery(self, query):
+        """Gets surgeon names that match the searched term
+
+        Args:
+            query (str): user searched term
+
+        Returns:
+            dict: dict of surgeon names
+        """
         output_dict = {}
         output_names = []
         query = query.lower()
@@ -202,10 +277,18 @@ class Airtable:
         return output_dict
 
     def getBlockNamesBySurgeon(self, surgeon_name):
+        """Parses getSurgeonPreferences() and returns the preferred block names for desired surgeon
+
+        Args:
+            surgeon_name (str): targeted surgeon
+
+        Returns:
+            dict: dict of blocks in JSON format
+        """
         surgeon_name = surgeon_name.lower()
         output_dict = dict()
         output_blocks = set()
-        data = self.getSurgereonPreferences()
+        data = self.getSurgeonPreferences()
         table_rows = data["rows"]
         for row in table_rows:
             if "surgeon-name" in row and surgeon_name in row["surgeon-name"].lower():
@@ -219,10 +302,18 @@ class Airtable:
 
 
     def getSurgeryNamesBySurgeon(self, surgeon_name):
+        """Parses getSurgeonPreferences() and returns the surgeries for desired surgeon
+
+        Args:
+            surgeon_name (str): targeted surgeon
+
+        Returns:
+            dict: dict of blocks in JSON format
+        """
         surgeon_name = surgeon_name.lower()
         output_dict = dict()
         output_surgeries= set()
-        data = self.getSurgereonPreferences()
+        data = self.getSurgeonPreferences()
         table_rows = data["rows"]
         for row in table_rows:
             if "surgeon-name" in row and surgeon_name in row["surgeon-name"].lower():
@@ -247,7 +338,7 @@ class Airtable:
     
 if __name__ == "__main__":
     airtable = Airtable()
-    # print(airtable.getBlocksbyQuery("knee"))
-    print(airtable.getSurgeryNamesBySurgeon("Dean"))
+    # print(airtable.getBlockbyQuery("knee"))
+    # print(airtable.getSurgeryNamesBySurgeon("Dean"))
     # airtable.getBlocksbyQuery("knee")
     # print(airtable.getBlocks())
