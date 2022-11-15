@@ -51,14 +51,14 @@ class Airtable:
     def getBlockNames(self): #returns the names of all blocks
         output = {}
         block_names = []
-        data = self.getSurgeons()
+        data = self.getBlocks()
         table_rows = data["records"]
         for row in table_rows:
             column_data = row["fields"]
             if "Name" in column_data:
                 name = column_data["Name"]
                 block_names.append(name)
-        output["surgeon_names"] = block_names
+        output["block_names"] = block_names
         return output
 
     def getSurgereonPreferences(self):
