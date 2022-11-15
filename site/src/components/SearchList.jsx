@@ -5,17 +5,13 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CapitalizeFirstLetter } from '../helpers/CapitalizeFirstLetter';
 import { AlphabetizeList } from '../helpers/AlphabetizeList';
-import Navbar from '../components/Navbar';
-import Searchbar from '../components/Searchbar';
-import './Home.css';
+import '../views/ListView.css';
 
-const Search = () => {
+const Search = ({ setLoading, setKeyword, loading }) => {
   const {bodyPart} = useParams();
 
   const [surgeryList, setSurgeryList] = useState([]);
   const [blockList, setBlockList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [keyword, setKeyword] = useState(bodyPart)
 
   const getSearch = async (searchTerm) => {
     setLoading(true);
@@ -28,6 +24,8 @@ const Search = () => {
   }
 
   useEffect(() => {
+    setSurgeryList([]);
+    setBlockList([]);
     getSearch(bodyPart);
     setKeyword(bodyPart);
 
@@ -62,27 +60,21 @@ const Search = () => {
     )
   }
 
-  const searchPage = () => {
-    return (
-      <>
-        <h3 className="category-heading">Surgeries</h3>
-        <table className="list-items">
-          {surgeryList.length === 0 ? "N/A" : surgeryList.map(surgery => listSurgeries(surgery))}
-        </table>
-        <h3 className="category-heading">Blocks</h3>
-        <table className="list-items">
-          {blockList.length === 0 ? "N/A" : blockList.map(block => listBlocks(block))}
-        </table>
-      </>
-    )
-  }
-
   return (
-    <div>
-      <Searchbar searchTerm={keyword} />
-      {loading ? "Loading" : searchPage()}
-      <Navbar activePage={"anatomy"}/>
-    </div>
+    <>
+      {loading ? null : (
+        <>
+          <h3 className="category-heading">Surgeries</h3>
+          <table className="list-items">
+            {surgeryList.length === 0 ? "No search results found" : surgeryList.map(surgery => listSurgeries(surgery))}
+          </table>
+          <h3 className="category-heading">Blocks</h3>
+          <table className="list-items">
+            {blockList.length === 0 ? "No search results found" : blockList.map(block => listBlocks(block))}
+          </table>
+        </>
+      )}
+    </>
   )
 }
 

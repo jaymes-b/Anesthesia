@@ -5,13 +5,10 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CapitalizeFirstLetter } from '../helpers/CapitalizeFirstLetter';
 import { AlphabetizeList } from '../helpers/AlphabetizeList';
-import Navbar from '../components/Navbar';
-import Searchbar from '../components/Searchbar';
-import './Home.css';
+import '../views/ListView.css';
 
-const Home = () => {
+const SurgeryList = ({ setLoading, setKeyword }) => {
   const [surgeryList, setSurgeryList] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const getSurgeries = async () => {
     setLoading(true);
@@ -23,33 +20,26 @@ const Home = () => {
   }
 
   useEffect(() => {
+    setKeyword("");
     getSurgeries();
   }, [])
 
-  const listSurgeries = (surgery) => {
-    return (
-      <Link to={`/surgery/${surgery}`}>
-        <tr>
-          <td>
-            {CapitalizeFirstLetter(surgery)}
-            <FontAwesomeIcon icon={faChevronRight} size="lg" />
-          </td>
-        </tr>
-      </Link>
-    )
-  }
-
   return (
-    <div>
-      <Searchbar />
-      {loading ? "Loading" : (
-        <table className="list-items">
-          {surgeryList.map(surgery => listSurgeries(surgery))}
-        </table>
-      )}
-      <Navbar activePage={"home"}/>
-    </div>
+    <table className="list-items">
+      {surgeryList.map(surgery => {
+        return (
+          <Link to={`/surgery/${surgery}`}>
+            <tr>
+              <td>
+                {CapitalizeFirstLetter(surgery)}
+                <FontAwesomeIcon icon={faChevronRight} size="lg" />
+              </td>
+            </tr>
+          </Link>
+        )
+      })}
+    </table>
   )
 }
 
-export default Home
+export default SurgeryList
