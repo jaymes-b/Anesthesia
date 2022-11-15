@@ -162,6 +162,14 @@ class Airtable:
         return output #return dictionary {rows: []}
 
     def getSurgeryByKey(self, key):
+        """Gets surgery information from airtable
+
+        Args:
+            key (str): surgery key specified by suser
+
+        Returns:
+            dict: surgery information in JSON format
+        """
         key = key.lower()
         output = {} #return type must be a dict
         output_rows = []
