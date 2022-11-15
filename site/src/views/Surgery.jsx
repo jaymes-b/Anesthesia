@@ -42,7 +42,7 @@ const Surgery = () => {
                           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                         </a>
                       </li>
-                    ) : <li>N/A</li>}
+                    ) : <li>No references found</li>}
                     <Link to={`/block/${block[0]}`}>
                       <li>More information</li>
                     </Link>

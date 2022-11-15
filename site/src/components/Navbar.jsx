@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { faHome, faImage, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faImage, faGear, faSyringe, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Navbar.css';
 
@@ -12,6 +12,18 @@ const Navbar = ({ activePage }) => {
           icon={faHome}
           size="2x" />
         <p className="navbar-label">Home</p>
+      </Link>
+      <Link to="/blocks" className={activePage === "blocks" ? "active" : ""}>
+        <FontAwesomeIcon 
+          icon={faSyringe}
+          size="2x" />
+        <p className="navbar-label">Blocks</p>
+      </Link>
+      <Link to="/surgeons" className={activePage === "surgeons" ? "active" : ""}>
+        <FontAwesomeIcon 
+          icon={faUserDoctor}
+          size="2x" />
+        <p className="navbar-label">Surgeons</p>
       </Link>
       <Link to="/anatomy" className={activePage === "anatomy" ? "active" : ""}>
         <FontAwesomeIcon 
