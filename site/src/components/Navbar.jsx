@@ -1,17 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { faHome, faImage, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faHeartPulse, faImage, faGear, faSyringe, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Navbar.css';
 
 const Navbar = ({ activePage }) => {
   return (
     <nav className="navbar">
-      <Link to="/" className={activePage === "home" ? "active" : ""}>
+      <Link to="/" className={activePage === "surgeries" ? "active" : ""}>
         <FontAwesomeIcon 
-          icon={faHome}
+          icon={faHeartPulse}
           size="2x" />
-        <p className="navbar-label">Home</p>
+        <p className="navbar-label">Surgeries</p>
+      </Link>
+      <Link to="/blocks" className={activePage === "blocks" ? "active" : ""}>
+        <FontAwesomeIcon 
+          icon={faSyringe}
+          size="2x" />
+        <p className="navbar-label">Blocks</p>
+      </Link>
+      <Link to="/surgeons" className={activePage === "surgeons" ? "active" : ""}>
+        <FontAwesomeIcon 
+          icon={faUserDoctor}
+          size="2x" />
+        <p className="navbar-label">Surgeons</p>
       </Link>
       <Link to="/anatomy" className={activePage === "anatomy" ? "active" : ""}>
         <FontAwesomeIcon 

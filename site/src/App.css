@@ -1,0 +1,3 @@
+.navbar-page > *:nth-last-child(2) {
+  margin-bottom: 100px;
+}
