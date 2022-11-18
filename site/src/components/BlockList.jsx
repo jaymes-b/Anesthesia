@@ -27,9 +27,9 @@ const BlockList = ({ setLoading, setKeyword }) => {
 
   return (
     <table className="list-items">
-      {blockList.map(block => {
+      {blockList.map((block, i) => {
         return (
-          <Link to={`/block/${block}`}>
+          <Link to={`/block/${block}`} key={i}>
             <tr>
               <td>
                 {CapitalizeFirstLetter(block)}

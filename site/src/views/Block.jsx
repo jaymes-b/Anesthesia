@@ -23,9 +23,9 @@ const Block = () => {
       <div className="block-references">
         <h3>References</h3>
         <ul>
-          {block.references?.map(ref => {
+          {block.references?.map((ref, i) => {
             return (
-              <li>
+              <li key={`reference${i}`}>
                 {ref.title}
                 <a href={ref.link} target="_blank" rel="noreferrer">
                   <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
@@ -39,12 +39,11 @@ const Block = () => {
         <h3>Surgeries</h3>
         <ul>
           {
-            block.surgeries?.map(surgery => {
+            block.surgeries?.map((surgery, i) => {
               const surgeryInfo = DUMMY_DATA.surgeries.find(s => s.id === surgery);
-              console.log(surgeryInfo)
               if (surgeryInfo !== undefined) {
                 return (
-                  <Link to={`/surgery/${surgery}`}>
+                  <Link to={`/surgery/${surgery}`} key={`surgery${i}`}>
                     <li>{CapitalizeFirstLetter(surgeryInfo.surgery)}</li>
                   </Link>
                 )

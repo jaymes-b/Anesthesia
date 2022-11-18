@@ -26,9 +26,9 @@ const SurgeryList = ({ setLoading, setKeyword }) => {
 
   return (
     <table className="list-items">
-      {surgeryList.map(surgery => {
+      {surgeryList.map((surgery, i) => {
         return (
-          <Link to={`/surgery/${surgery}`}>
+          <Link to={`/surgery/${surgery}`} key={i}>
             <tr>
               <td>
                 {CapitalizeFirstLetter(surgery)}

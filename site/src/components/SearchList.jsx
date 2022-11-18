@@ -12,6 +12,7 @@ const Search = ({ setLoading, setKeyword, loading }) => {
 
   const [surgeryList, setSurgeryList] = useState([]);
   const [blockList, setBlockList] = useState([]);
+  const [surgeonsList, setSurgeonsList] = useState([]);
 
   const getSearch = async (searchTerm) => {
     setLoading(true);
@@ -19,6 +20,7 @@ const Search = ({ setLoading, setKeyword, loading }) => {
       .then(res => {
         setBlockList(AlphabetizeList(res.data.blocks_data.rows));
         setSurgeryList(AlphabetizeList(res.data.surgeries_data.rows));
+        setSurgeonsList(AlphabetizeList(res.data.surgeons_data.surgeons_names))
       })
       .finally(() => setLoading(false));
   }
@@ -28,15 +30,11 @@ const Search = ({ setLoading, setKeyword, loading }) => {
     setBlockList([]);
     getSearch(bodyPart);
     setKeyword(bodyPart);
-
-    if (bodyPart === undefined) {
-      // set home icon to active, make diff api call, etc.
-    }
   }, [bodyPart])
 
-  const listSurgeries = (surgery) => {
+  const listSurgeries = (surgery, i) => {
     return (
-      <Link to={`/surgery/${surgery}`}>
+      <Link to={`/surgery/${surgery}`} key={`surgery${i}`}>
         <tr>
           <td>
             {CapitalizeFirstLetter(surgery)}
@@ -47,12 +45,25 @@ const Search = ({ setLoading, setKeyword, loading }) => {
     )
   }
 
-  const listBlocks = (block) => {
+  const listBlocks = (block, i) => {
     return (
-      <Link to={`/block/${block}`}>
+      <Link to={`/block/${block}`} key={`block${i}`}>
         <tr>
           <td>
             {CapitalizeFirstLetter(block)}
+            <FontAwesomeIcon icon={faChevronRight} size="lg" />
+          </td>
+        </tr>
+      </Link>
+    )
+  }
+
+  const listSurgeons = (surgeon, i) => {
+    return (
+      <Link to={`/surgeon/${surgeon}`} key={`surgeon${i}`}>
+        <tr>
+        <td>
+            {surgeon}
             <FontAwesomeIcon icon={faChevronRight} size="lg" />
           </td>
         </tr>
@@ -66,11 +77,15 @@ const Search = ({ setLoading, setKeyword, loading }) => {
         <>
           <h3 className="category-heading">Surgeries</h3>
           <table className="list-items">
-            {surgeryList.length === 0 ? "No search results found" : surgeryList.map(surgery => listSurgeries(surgery))}
+            {surgeryList.length === 0 ? "No search results found" : surgeryList.map((surgery, i) => listSurgeries(surgery, i))}
           </table>
           <h3 className="category-heading">Blocks</h3>
           <table className="list-items">
-            {blockList.length === 0 ? "No search results found" : blockList.map(block => listBlocks(block))}
+            {blockList.length === 0 ? "No search results found" : blockList.map((block, i) => listBlocks(block, i))}
+          </table>
+          <h3 className="category-heading">Surgeons</h3>
+          <table className="list-items">
+            {surgeonsList.length === 0 ? "No search results found" : surgeonsList.map((surgeon, i) => listSurgeons(surgeon, i))}
           </table>
         </>
       )}

@@ -11,12 +11,15 @@ import './DetailsPage.css';
 const Surgery = () => {
   const { surgeryId } = useParams();
   const [surgery, setSurgery] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const getSurgery = async () => {
+    setLoading(true);
     await axios.get(`http://127.0.0.1:5000/api/surgery?surgeryName=${surgeryId}`)
       .then(res => {
         setSurgery(res.data.rows[0] || {});
       })
+      .finally(() => setLoading(false));
   }
 
   useEffect(() => {
@@ -26,14 +29,14 @@ const Surgery = () => {
   return (
     <div className="details-page">
       <PageBar pageTitle={CapitalizeFirstLetter(surgery?.Name) || ""} />
-      {Object.keys(surgery).length === 0 ? "No information found" : (
+      {loading ? "Loading" : Object.keys(surgery).length === 0 ? "No information found" : (
         <>
           <img src={"Attachments" in surgery ? surgery.Attachments[0]?.url : ""} className="details-image" alt={surgery.Name}/>
           <div className="surgery-blocks">
             <h3>Block selection</h3>
-            {surgery.linked_references?.map(block => {
+            {surgery.linked_references?.map((block, i) => {
               return (
-                <Accordion labelName={CapitalizeFirstLetter(block[0])}>
+                <Accordion labelName={CapitalizeFirstLetter(block[0])} key={`block${i}`}>
                   <ul>
                     {block[1] ? (
                       <li>
@@ -53,9 +56,9 @@ const Surgery = () => {
           </div>
           <div className="surgery-preferences">
             <h3>Surgeon preferences</h3>
-            {surgery["surgeon-pref-data"]?.filter(pref => pref["surgeon-name"] !== "NOTES").map(pref => {
+            {surgery["surgeon-pref-data"]?.filter(pref => pref["surgeon-name"] !== "NOTES").map((pref, i) => {
               return (
-                <p>
+                <p key={`preference${i}`}>
                   <b>{pref["surgeon-name"] + ": "}</b>
                   {pref["pre-approved"] ? "PRE-APPROVED " : null}
                   {pref.timing + " "}
@@ -63,9 +66,9 @@ const Surgery = () => {
                 </p>
               )
             })}
-            {surgery["surgeon-pref-data"]?.filter(pref => pref["surgeon-name"] === "NOTES").map(pref => {
+            {surgery["surgeon-pref-data"]?.filter(pref => pref["surgeon-name"] === "NOTES").map((pref, i) => {
               return (
-                <p>
+                <p key={`notes${i}`}>
                   <b>{pref["surgeon-name"] + ": "}</b>
                   {pref.Notes}
                 </p>

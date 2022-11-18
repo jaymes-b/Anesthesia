@@ -10,13 +10,14 @@ import Block from './views/Block';
 import NotFound from './views/NotFound';
 import Search from './components/SearchList';
 import './App.css';
+import Surgeon from './views/Surgeon';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
-          <ListView navIcon={"home"}>
+          <ListView navIcon={"surgeries"}>
             <SurgeryList />
           </ListView>
         } />
@@ -39,6 +40,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/surgery/:surgeryId" element={<Surgery />} />
         <Route path="/block/:blockId" element={<Block />} />
+        <Route path="/surgeon/:surgeonId" element={<Surgeon />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

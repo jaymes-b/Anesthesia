@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CapitalizeFirstLetter } from '../helpers/CapitalizeFirstLetter';
+import { AlphabetizeList } from '../helpers/AlphabetizeList';
 import '../views/ListView.css';
 
 const SurgeonList = ({ setLoading, setKeyword }) => {
@@ -11,8 +14,7 @@ const SurgeonList = ({ setLoading, setKeyword }) => {
     setLoading(true);
     await axios.get("http://127.0.0.1:5000/api/surgeons")
       .then(res => {
-        console.log(res.data)
-        setBlockList(AlphabetizeList(res.data.block_names));
+        setSurgeonList(AlphabetizeList(res.data.surgeon_names));
       })
       .finally(() => setLoading(false));
   }
@@ -25,9 +27,9 @@ const SurgeonList = ({ setLoading, setKeyword }) => {
 
   return (
     <table className="list-items">
-      {surgeonList.map(surgeon => {
+      {surgeonList.map((surgeon, i) => {
         return (
-          <Link to={`/surgeon/${surgeon}`}>
+          <Link to={`/surgeon/${surgeon}`} key={i}>
             <tr>
               <td>
                 {CapitalizeFirstLetter(surgeon)}
