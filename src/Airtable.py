@@ -30,6 +30,14 @@ class Airtable:
             json_file.write(str(data))
         return data #returns json file
 
+    def getBodyPart(self):
+        url = self.url + self.table_names[0]
+        response = requests.get(url, headers=self.headers)
+        data = response.json()
+        with open("airtable_data.txt", "w") as json_file:
+            json_file.write(str(data))
+        return data #returns json file
+
     def getReferenceRows(self):
         data = self.getReferences()
         output = {} #return type must be a dict
@@ -40,6 +48,7 @@ class Airtable:
             output_rows.append(column_data)
         output["rows"] = output_rows
         return output
+    
 
 
     def getBlocks(self) -> dict: #returns all blocks 
@@ -356,6 +365,20 @@ class Airtable:
                         output_surgeries.add(surgery_name)
         output_dict["surgery_names"] = list(output_surgeries)
         return output_dict
+    
+    def getBodyPartByName(self, body_part):
+        body_part = body_part.lower()
+        data = self.getBodyPart()
+        output = {}
+        rows = []
+        data = self.getBlocks()
+        table_rows = data["records"]
+        for row in table_rows:
+            column_data = row["fields"]
+            if ("Name" in column_data) and (body_part in column_data["Name"]):
+                rows.append(column_data)
+        output["rows"] = rows
+        return output
 
 
 
@@ -373,4 +396,4 @@ if __name__ == "__main__":
     # print(airtable.getBlockbyQuery("knee"))
     # print(airtable.getSurgeryNamesBySurgeon("Dean"))
     # airtable.getBlocksbyQuery("knee")
-    print(airtable.getReferenceRows())
+    print(airtable.getBodyPart())

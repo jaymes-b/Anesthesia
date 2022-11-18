@@ -95,6 +95,9 @@ def handle_surgery():
 
 
 
+@app.route("/api/body")
+def handle_bodypart():
+    body_part = request.args.get("BodyPart")
     
 
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
