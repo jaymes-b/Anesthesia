@@ -57,13 +57,21 @@ def handle_surgery():
     surgery_name = request.args.get("surgeryName") #SurgeryName = knee ACL repair
     surgery_data = airtable.getSurgeryByKey(surgery_name)
     surgeron_prefs = airtable.getSurgeonPreferences()
+    refs_rows = airtable.getReferenceRows()
     for i in range(len(surgery_data["rows"])):
         print("starting rows loop")
         row = surgery_data["rows"][i]
         if ("Name (from references)" in row) and ("Name (from block)" in row):
             blocks = surgery_data["rows"][i]["Name (from block)"]
             references = surgery_data["rows"][i]["Name (from references)"]
-            surgery_data["rows"][i]["linked_references"] = list( zip(blocks, references))
+            temp_list = []
+            for i in range(len(references)):
+                temp_list.append(blocks[i])
+                temp_list.append(references[i])
+                for row in refs_rows["rows"]:
+                    if references[i] in row["Name"]:
+                        temp_list.append(row["URL"])
+            surgery_data["rows"][i]["linked_references"] = temp_list
         else:
             surgery_data["rows"][i]["linked_references"] = []
         if "surgeon-preference-text" in row:
@@ -92,7 +100,7 @@ def handle_surgery():
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
 def handle_block():
     block_name = request.args.get("BlockName") #query = knee
-    return airtable.getBlocksbyBodyPart(body_part)
+    return airtable.getsBlocksByName(block_name)
 
 
 

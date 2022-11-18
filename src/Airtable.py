@@ -22,6 +22,26 @@ class Airtable:
             json_file.write(str(data))
         return data #returns json file
 
+    def getReferences(self):
+        url = self.url + self.table_names[3]
+        response = requests.get(url, headers=self.headers)
+        data = response.json()
+        with open("airtable_data.txt", "w") as json_file:
+            json_file.write(str(data))
+        return data #returns json file
+
+    def getReferenceRows(self):
+        data = self.getReferences()
+        output = {} #return type must be a dict
+        output_rows = []
+        table_rows = data["records"]
+        for row in table_rows:
+            column_data = row["fields"]
+            output_rows.append(column_data)
+        output["rows"] = output_rows
+        return output
+
+
     def getBlocks(self) -> dict: #returns all blocks 
         """Gets block information from airtable
 
@@ -194,8 +214,8 @@ class Airtable:
         body_part = body_part.lower()
         output = {} #return type must be a dict
         output_rows = []
-        surgery_json = self.getBlocks() #returns json file 
-        table_rows = surgery_json["records"]
+        blocks_json = self.getBlocks() #returns json file 
+        table_rows = blocks_json["records"]
         for row in table_rows:
             column_data = row["fields"]
             if body_part in column_data["Name (from body-part)"].lower():
@@ -203,8 +223,19 @@ class Airtable:
         output["rows"] = output_rows
         return output #return dictionary {rows: []}
 
-    def getBlocksbySurgeon(self, surgeon_name):
-        pass
+    def getsBlocksByName(self, block_name):
+        block_name = block_name.lower()
+        output = {} #return type must be a dict
+        output_rows = []
+        blocks_json = self.getBlocks() #returns json file 
+        table_rows = blocks_json["records"]
+        for row in table_rows:
+            column_data = row["fields"]
+            if block_name in column_data["Name"].lower():
+                output_rows.append(column_data)
+        output["rows"] = output_rows
+        return output #return dictionary {rows: []}
+
     
     def getBlocksbyQuery(self, query):
         """Gets all blocks that match the searched term
@@ -341,4 +372,4 @@ if __name__ == "__main__":
     # print(airtable.getBlockbyQuery("knee"))
     # print(airtable.getSurgeryNamesBySurgeon("Dean"))
     # airtable.getBlocksbyQuery("knee")
-    # print(airtable.getBlocks())
+    print(airtable.getReferenceRows())
