@@ -1,43 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CapitalizeFirstLetter } from '../helpers/CapitalizeFirstLetter';
+import { AlphabetizeList } from '../helpers/AlphabetizeList';
 import '../views/ListView.css';
 
-const SurgeonList = ({ setLoading, setKeyword }) => {
+const BlockList = ({ setLoading, setKeyword }) => {
+  const [blockList, setBlockList] = useState([]);
+
+  const getBlocks = async () => {
+    setLoading(true);
+    await axios.get("http://127.0.0.1:5000/api/blocks")
+      .then(res => {
+        setBlockList(AlphabetizeList(res.data.block_names));
+      })
+      .finally(() => setLoading(false));
+  }
+
   useEffect(() => {
     setLoading(false);
     setKeyword("");
+    getBlocks();
   }, [])
 
   return (
     <table className="list-items">
-      <Link to={"#"}>
-        <tr>
-          <td>
-            Interscalene single-shot
-            <FontAwesomeIcon icon={faChevronRight} size="lg" />
-          </td>
-        </tr>
-      </Link>
-      <Link to={"#"}>
-        <tr>
-          <td>
-            Adductor canal continuous catheter
-            <FontAwesomeIcon icon={faChevronRight} size="lg" />
-          </td>
-        </tr>
-      </Link>
-      <Link to={"#"}>
-        <tr>
-          <td>
-            Thoracic epidural
-            <FontAwesomeIcon icon={faChevronRight} size="lg" />
-          </td>
-        </tr>
-      </Link>
+      {blockList.map(block => {
+        return (
+          <Link to={`/block/${block}`}>
+            <tr>
+              <td>
+                {CapitalizeFirstLetter(block)}
+                <FontAwesomeIcon icon={faChevronRight} size="lg" />
+              </td>
+            </tr>
+          </Link>
+        )
+      })}
     </table>
   )
 }
 
-export default SurgeonList
+export default BlockList
