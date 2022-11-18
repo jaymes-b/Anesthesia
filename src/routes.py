@@ -98,12 +98,13 @@ def handle_surgery():
 @app.route("/api/body")
 def handle_bodypart():
     body_part = request.args.get("BodyPart")
-
+    return airtable.getBodyPartByName(body_part)
+    
 
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
 def handle_block():
     block_name = request.args.get("BlockName") #query = knee
-    return airtable.getBodyPartByName(block_name)
+    return airtable.getsBlocksByName(block_name)
 
 
 
