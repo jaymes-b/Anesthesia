@@ -375,7 +375,7 @@ class Airtable:
         table_rows = data["records"]
         for row in table_rows:
             column_data = row["fields"]
-            if ("Name" in column_data) and (body_part in column_data["Name"]):
+            if ("Name" in column_data) and (body_part in column_data["Name"].lower()):
                 rows.append(column_data)
         output["rows"] = rows
         return output
