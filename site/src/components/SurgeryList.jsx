@@ -12,7 +12,7 @@ const SurgeryList = ({ setLoading, setKeyword }) => {
 
   const getSurgeries = async () => {
     setLoading(true);
-    await axios.get("http://127.0.0.1:5000/api/home")
+    await axios.get("http://184.72.9.207:5000/api/home")
       .then(res => {
         setSurgeryList(AlphabetizeList(res.data.surgeries));
       })

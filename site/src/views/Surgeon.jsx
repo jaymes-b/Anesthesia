@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import PageBar from '../components/PageBar';
+import Spinner from '../components/Spinner';
 import './DetailsPage.css';
 
 const Surgeon = () => {
@@ -12,7 +13,7 @@ const Surgeon = () => {
 
   const getSurgeon = async () => {
     setLoading(true);
-    await axios.get(`http://127.0.0.1:5000/api/search/surgeon?surgeonName=${surgeonId}`)
+    await axios.get(`http://184.72.9.207:5000/api/search/surgeon?surgeonName=${surgeonId}`)
       .then(res => {
         setBlockList(res.data.block_names.block_names);
         setSurgeryList(res.data.surgery_names.surgery_names);
@@ -28,7 +29,7 @@ const Surgeon = () => {
   return (
     <div>
       <PageBar pageTitle={surgeonId || ""} />
-      {loading ? "Loading" : (
+      {loading ? <Spinner /> : (
         <>
           <h3>Blocks</h3>
           <ul>

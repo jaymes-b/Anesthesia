@@ -6,13 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CapitalizeFirstLetter } from '../helpers/CapitalizeFirstLetter';
 import { AlphabetizeList } from '../helpers/AlphabetizeList';
 import '../views/ListView.css';
+import Spinner from './Spinner';
 
 const SurgeonList = ({ setLoading, setKeyword }) => {
   const [surgeonList, setSurgeonList] = useState([]);
 
   const getSurgeons = async () => {
     setLoading(true);
-    await axios.get("http://127.0.0.1:5000/api/surgeons")
+    await axios.get("http://184.72.9.207:5000/api/surgeons")
       .then(res => {
         setSurgeonList(AlphabetizeList(res.data.surgeon_names));
       })

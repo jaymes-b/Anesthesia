@@ -1,6 +1,7 @@
 import React, { useState, useEffect, cloneElement } from 'react';
 import Navbar from '../components/Navbar';
 import Searchbar from '../components/Searchbar';
+import Spinner from '../components/Spinner';
 import './ListView.css';
 
 const ListView = ({ children, navIcon }) => {
@@ -11,16 +12,15 @@ const ListView = ({ children, navIcon }) => {
   useEffect(() => {
     
   }, [])
-  console.log(window.history.state)
 
   const childrenWithProps = React.Children.map(children, child => {
     return cloneElement(child, {setLoading, setKeyword, loading})
   });
 
   return (
-    <div>
+    <div className="navbar-page">
       <Searchbar searchTerm={keyword}/>
-      {loading ? "Loading" : null}
+      {loading ? <Spinner /> : null}
       {childrenWithProps}
       <Navbar activePage={navIcon}/>
     </div>

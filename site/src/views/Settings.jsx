@@ -4,9 +4,9 @@ import './Settings.css'
 
 const Settings = () => {
   return (
-    <div>
+    <div className="navbar-page">
       <h1>Settings</h1>
-      <button type="button" disabled>Update Database</button>
+      <button type="button">Update Database</button>
       {/* <div>
         Dark Mode
         <label class="switch">
