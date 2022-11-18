@@ -1,11 +1,11 @@
 from flask import Flask, request
-from flask_cors import CORS
+# from flask_cors import CORS
 from Airtable import *
 import json
 
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 airtable = Airtable()
 
 @app.route("/")
@@ -65,11 +65,11 @@ def handle_surgery():
             blocks = surgery_data["rows"][i]["Name (from block)"]
             references = surgery_data["rows"][i]["Name (from references)"]
             temp_list = []
-            for i in range(len(references)):
-                temp_list.append(blocks[i])
-                temp_list.append(references[i])
+            for j in range(len(references)):
+                temp_list.append(blocks[j])
+                temp_list.append(references[j])
                 for row in refs_rows["rows"]:
-                    if references[i] in row["Name"]:
+                    if references[j] in row["Name"]:
                         temp_list.append(row["URL"])
             surgery_data["rows"][i]["linked_references"] = temp_list
         else:

@@ -231,8 +231,9 @@ class Airtable:
         table_rows = blocks_json["records"]
         for row in table_rows:
             column_data = row["fields"]
-            if block_name in column_data["Name"].lower():
-                output_rows.append(column_data)
+            if "Name" in column_data:
+                if block_name in column_data["Name"].lower():
+                    output_rows.append(column_data)
         output["rows"] = output_rows
         return output #return dictionary {rows: []}
 
