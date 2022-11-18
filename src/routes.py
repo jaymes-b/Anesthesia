@@ -1,11 +1,11 @@
 from flask import Flask, request
-# from flask_cors import CORS
+from flask_cors import CORS
 from Airtable import *
 import json
 
 
 app = Flask(__name__)
-# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 airtable = Airtable()
 
 @app.route("/")
@@ -91,7 +91,7 @@ def handle_surgery():
 
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
 def handle_block():
-    body_part = request.args.get("bodyPart") #query = knee
+    block_name = request.args.get("BlockName") #query = knee
     return airtable.getBlocksbyBodyPart(body_part)
 
 
