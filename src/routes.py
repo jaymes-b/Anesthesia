@@ -106,6 +106,11 @@ def handle_block():
     block_name = request.args.get("BlockName") #query = knee
     return airtable.getsBlocksByName(block_name)
 
+@app.route('api/feedback')
+def handle_feedback():
+    feedback = request.args.get("feedback")
+    return airtable.getFeedback(feedback)
+
 
 
 if __name__ == "__main__":
