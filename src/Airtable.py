@@ -325,6 +325,34 @@ class Airtable:
         output_dict["surgery_names"] = list(output_surgeries)
         return output_dict
 
+def addFeedback(self, comments = "None", sourcePage = "None"):
+        """adds feedback directly to the airtable
+
+        Args:
+            comments (str): user comment
+            sourcePage (str): source page
+
+        Returns:
+            boolean: True if successful, False if not
+        """
+        endpoint = self.url + "feedback"
+        headers = self.headers
+        headers["Content-Type"] = "application/json"
+
+        data = {
+        "records": [
+                {
+                "fields": {
+                    "comments": comments,
+                    "source-page": sourcePage
+                    }
+                }
+            ]
+        }
+
+        r = requests.post(endpoint, json=data, headers=headers)
+        return r.status_code == 200
+
 
 
 
