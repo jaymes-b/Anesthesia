@@ -1,11 +1,11 @@
 from flask import Flask, request
-from flask_cors import CORS
+# from flask_cors import CORS
 from Airtable import *
 import json
 
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 airtable = Airtable()
 
 @app.route("/")
@@ -57,12 +57,23 @@ def handle_surgery():
     surgery_name = request.args.get("surgeryName") #SurgeryName = knee ACL repair
     surgery_data = airtable.getSurgeryByKey(surgery_name)
     surgeron_prefs = airtable.getSurgeonPreferences()
+    refs_rows = airtable.getReferenceRows()
     for i in range(len(surgery_data["rows"])):
         print("starting rows loop")
         row = surgery_data["rows"][i]
-        blocks = surgery_data["rows"][i]["Name (from block)"]
-        references = surgery_data["rows"][i]["Name (from references)"]
-        surgery_data["rows"][i]["linked_references"] = list( zip(blocks, references))
+        if ("Name (from references)" in row) and ("Name (from block)" in row):
+            blocks = surgery_data["rows"][i]["Name (from block)"]
+            references = surgery_data["rows"][i]["Name (from references)"]
+            temp_list = []
+            for j in range(len(references)):
+                temp_list.append(blocks[j])
+                temp_list.append(references[j])
+                for row in refs_rows["rows"]:
+                    if references[j] in row["Name"]:
+                        temp_list.append(row["URL"])
+            surgery_data["rows"][i]["linked_references"] = temp_list
+        else:
+            surgery_data["rows"][i]["linked_references"] = []
         if "surgeon-preference-text" in row:
             preferences = [] #list of preference indexes
             for char in row["surgeon-preference-text"]:
@@ -77,19 +88,23 @@ def handle_surgery():
                         if "surgeon-pref-data" not in surgery_data["rows"][i]:
                             surgery_data["rows"][i]["surgeon-pref-data"] = []
                         surgery_data["rows"][i]["surgeon-pref-data"].append(surgeon_pref_row) #matches them with surgeon preference rows 
-    for i in range(len(surgery_data["rows"])):
-        row = surgery_data["rows"][i]
+    # for i in range(len(surgery_data["rows"])):
+    #     row = surgery_data["rows"][i]
 
     return surgery_data 
 
 
 
+@app.route("/api/body")
+def handle_bodypart():
+    body_part = request.args.get("BodyPart")
+    return airtable.getBodyPartByName(body_part)
     
 
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
 def handle_block():
-    body_part = request.args.get("bodyPart") #query = knee
-    return airtable.getBlocksbyBodyPart(body_part)
+    block_name = request.args.get("BlockName") #query = knee
+    return airtable.getsBlocksByName(block_name)
 
 
 
