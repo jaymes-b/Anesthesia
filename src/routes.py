@@ -104,12 +104,13 @@ def handle_block():
     block_name = request.args.get("BlockName")
     refs_rows = airtable.getReferenceRows()
     block_data = airtable.getsBlocksByName(block_name)
+    # print(refs_rows)
     for i in range(len(block_data["rows"])):
         row = block_data["rows"][i]
 
         block_data["rows"][i]["linked_references"] = []
         if ("references-text") in row:
-            reference = block_data["rows"][i]["references-text"]
+            reference = block_data["rows"][i]["references-text"][0]
             temp_list = [reference]
             for ref_row in refs_rows["rows"]:
                 if reference in ref_row["Name"]:
