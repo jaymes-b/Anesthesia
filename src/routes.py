@@ -61,6 +61,8 @@ def handle_surgery():
     for i in range(len(surgery_data["rows"])):
         print("starting rows loop")
         row = surgery_data["rows"][i]
+
+        surgery_data["rows"][i]["linked_references"] = []
         if ("Name (from references)" in row) and ("Name (from block)" in row):
             blocks = surgery_data["rows"][i]["Name (from block)"]
             references = surgery_data["rows"][i]["Name (from references)"]
@@ -68,18 +70,14 @@ def handle_surgery():
             for j in range(len(references)):
                 temp_list.append(blocks[j])
                 temp_list.append(references[j])
-                for row in refs_rows["rows"]:
-                    if references[j] in row["Name"]:
-                        temp_list.append(row["URL"])
-            surgery_data["rows"][i]["linked_references"] = temp_list
-        else:
-            surgery_data["rows"][i]["linked_references"] = []
+                for ref_row in refs_rows["rows"]:
+                    if references[j] in ref_row["Name"]:
+                        temp_list.append(ref_row["URL"])
+            surgery_data["rows"][i]["linked_references"].append(temp_list)
+
         if "surgeon-preference-text" in row:
-            preferences = [] #list of preference indexes
-            for char in row["surgeon-preference-text"]:
-                if char.isnumeric():
-                    preferences.append(int(char))
-            print("going into prefere")
+            print("inside surgeon_pref_text")
+            preferences = [int(num_string.strip()) for num_string in row["surgeon-preference-text"].split(",")] #list of preference indexes
             #compiles list of preferences for surgeries
             for pref_index in preferences:
                 print(pref_index)
@@ -103,14 +101,27 @@ def handle_bodypart():
 
 @app.route('/api/block') #handles bodypart --> block, only returns blocks
 def handle_block():
-    block_name = request.args.get("BlockName") #query = knee
-    return airtable.getsBlocksByName(block_name)
+    block_name = request.args.get("BlockName")
+    refs_rows = airtable.getReferenceRows()
+    block_data = airtable.getsBlocksByName(block_name)
+    for i in range(len(block_data["rows"])):
+        row = block_data["rows"][i]
 
-@app.route('api/feedback')
+        block_data["rows"][i]["linked_references"] = []
+        if ("references-text") in row:
+            reference = block_data["rows"][i]["references-text"]
+            temp_list = [reference]
+            for ref_row in refs_rows["rows"]:
+                if reference in ref_row["Name"]:
+                    temp_list.append(ref_row["URL"])
+            block_data["rows"][i]["linked_references"].append(temp_list)
+
+    return block_data
+
+@app.route('/api/feedback' , methods=["POST"])
 def handle_feedback():
     feedback = request.args.get("feedback")
-    return airtable.getFeedback(feedback)
-
+    return airtable.addFeedback(feedback)
 
 
 if __name__ == "__main__":

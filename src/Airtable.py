@@ -381,32 +381,32 @@ class Airtable:
         return output
 
 def addFeedback(self, comments = "None", sourcePage = "None"):
-        """adds feedback directly to the airtable
+    """adds feedback directly to the airtable
 
-        Args:
-            comments (str): user comment
-            sourcePage (str): source page
+    Args:
+        comments (str): user comment
+        sourcePage (str): source page
 
-        Returns:
-            boolean: True if successful, False if not
-        """
-        endpoint = self.url + "feedback"
-        headers = self.headers
-        headers["Content-Type"] = "application/json"
+    Returns:
+        boolean: True if successful, False if not
+    """
+    endpoint = self.url + "feedback"
+    headers = self.headers
+    headers["Content-Type"] = "application/json"
 
-        data = {
-        "records": [
-                {
-                "fields": {
-                    "comments": comments,
-                    "source-page": sourcePage
-                    }
+    data = {
+    "records": [
+            {
+            "fields": {
+                "comments": comments,
+                "source-page": sourcePage
                 }
-            ]
-        }
+            }
+        ]
+    }
 
-        r = requests.post(endpoint, json=data, headers=headers)
-        return r.status_code == 200
+    r = requests.post(endpoint, json=data, headers=headers)
+    return r.status_code == 200
 
 
 
@@ -424,4 +424,5 @@ if __name__ == "__main__":
     # print(airtable.getBlockbyQuery("knee"))
     # print(airtable.getSurgeryNamesBySurgeon("Dean"))
     # airtable.getBlocksbyQuery("knee")
-    print(airtable.getBodyPart())
+    # print(airtable.getBodyPart())
+    print(airtable.getsBlocksByName("adductor canal"))
