@@ -109,7 +109,7 @@ def handle_block():
 @app.route('api/feedback')
 def handle_feedback():
     feedback = request.args.get("feedback")
-    return airtable.getFeedback(feedback)
+    return airtable.addFeedback(feedback)
 
 
 
