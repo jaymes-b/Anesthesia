@@ -123,6 +123,10 @@ def handle_block():
 def handle_feedback():
     feedback = request.args.get("feedback")
     return airtable.addFeedback(feedback)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 90c1ae44d8de2b3a12bc8e73a81e6e91eae174c5
 
 
 if __name__ == "__main__":
