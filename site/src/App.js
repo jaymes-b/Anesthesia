@@ -4,13 +4,13 @@ import SurgeryList from './components/SurgeryList';
 import BlockList from './components/BlockList';
 import SurgeonList from './components/SurgeonList';
 import Anatomy from './views/Anatomy';
-import Settings from './views/Settings';
 import Surgery from './views/Surgery';
 import Block from './views/Block';
 import NotFound from './views/NotFound';
 import Search from './components/SearchList';
-import './App.css';
 import Surgeon from './views/Surgeon';
+import Feedback from './views/Feedback';
+import './App.css';
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
           </ListView>
         } />
         <Route path="/anatomy" element={<Anatomy />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/feedback" element={<Feedback />} />
         <Route path="/surgery/:surgeryId" element={<Surgery />} />
         <Route path="/block/:blockId" element={<Block />} />
         <Route path="/surgeon/:surgeonId" element={<Surgeon />} />

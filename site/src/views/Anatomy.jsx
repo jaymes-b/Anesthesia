@@ -5,7 +5,7 @@ import './Anatomy.css';
 
 const Anatomy = () => {
   return (
-    <div className="navbar-page">
+    <div>
       <div className="anatomy-gallery">
         <Card 
           imageUrl={"https://prod-images-static.radiopaedia.org/images/12509516/a4888249bacb0ebacd0fa7be38fd38_jumbo.jpg"}

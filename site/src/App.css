@@ -1,3 +1,6 @@
-.navbar-page > *:nth-last-child(2) {
+#root > div {
   margin-bottom: 100px;
+}
+.pagebar-page {
+  margin-top: 50px;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { faHeartPulse, faImage, faGear, faSyringe, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
+import { faHeartPulse, faImage, faCommentDots, faSyringe, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Navbar.css';
 
@@ -31,11 +31,11 @@ const Navbar = ({ activePage }) => {
           size="2x" />
           <p className="navbar-label">Anatomy</p>
       </Link>
-      <Link to="/settings" className={activePage === "settings" ? "active" : ""}>
+      <Link to="/feedback" className={activePage === "feedback" ? "active" : ""}>
         <FontAwesomeIcon 
-          icon={faGear}
+          icon={faCommentDots}
           size="2x" />
-          <p className="navbar-label">Settings</p>
+          <p className="navbar-label">Feedback</p>
       </Link>
     </nav>
   )

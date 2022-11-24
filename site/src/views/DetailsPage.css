@@ -1,14 +1,14 @@
 .details-page {
   display: grid;
 }
-.surgery-blocks, .surgery-preferences, .block-references, .block-surgeries {
+.surgery-blocks, .surgery-preferences, .block-references, .block-surgeries, .surgeon-page {
   width: 95%;
   margin: 0 auto;
 }
 .details-image {
   width: 100%;
 }
-.accordion-panel a {
+.accordion-panel a, .block-references a {
   margin: 0 5px;
   color: var(--red);
 }
@@ -20,19 +20,16 @@
   .details-page li {
     font-size: 1rem;
   }
-  .page-bar, .surgery-blocks, .block-references {
+  .surgery-blocks, .block-references {
     grid-column: 1 / span 2;
   }
   .surgery-preferences, .block-surgeries {
-    grid-row: 2;
+    grid-row: 1;
     grid-column: 2;
   }
 }
 @media screen and (min-width: 1024px) {
   .details-page {
     grid-template-columns: 1fr 2fr;
-  }
-  .page-bar {
-    grid-column: 1 / span 2;
   }
 }

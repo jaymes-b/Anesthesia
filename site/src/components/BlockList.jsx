@@ -12,7 +12,7 @@ const BlockList = ({ setLoading, setKeyword }) => {
 
   const getBlocks = async () => {
     setLoading(true);
-    await axios.get("http://184.72.9.207:5000/api/blocks")
+    await axios.get("http://127.0.0.1:5000/api/blocks")
       .then(res => {
         setBlockList(AlphabetizeList(res.data.block_names));
       })

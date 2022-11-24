@@ -16,7 +16,7 @@ const Search = ({ setLoading, setKeyword, loading }) => {
 
   const getSearch = async (searchTerm) => {
     setLoading(true);
-    await axios.get(`http://184.72.9.207:5000/api/search?query=${searchTerm}`)
+    await axios.get(`http://127.0.0.1:5000/api/search?query=${searchTerm}`)
       .then(res => {
         setBlockList(AlphabetizeList(res.data.blocks_data.rows));
         setSurgeryList(AlphabetizeList(res.data.surgeries_data.rows));

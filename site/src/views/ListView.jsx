@@ -18,7 +18,7 @@ const ListView = ({ children, navIcon }) => {
   });
 
   return (
-    <div className="navbar-page">
+    <div>
       <Searchbar searchTerm={keyword}/>
       {loading ? <Spinner /> : null}
       {childrenWithProps}
