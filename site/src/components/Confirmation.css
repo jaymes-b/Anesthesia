@@ -1,0 +1,49 @@
+.modal-container {
+  background-color: rgba(0, 0, 0, 0.75);;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.feedback-confirmation {
+  background-color: var(--dark-gray);
+  color: white;
+  padding: 40px 25px;
+  padding-top: 0px;
+  width: 80%;
+  border-radius: 5px;
+}
+.feedback-confirmation > h2 {
+  color: var(--yellow);
+}
+.feedback-confirmation > button {
+  border: solid black;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 5px;
+  margin-top: 10px;
+}
+.feedback-confirmation > button:hover {
+  background-color: var(--yellow);
+  color: white;
+  width: 100%;
+  border: solid var(--muted-yellow);
+  border-radius: 0px;
+}
+
+@media screen and (min-width: 768px) {
+  .feedback-confirmation {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .feedback-confirmation {
+    width: 40%;
+  }
+}
