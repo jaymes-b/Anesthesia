@@ -380,33 +380,33 @@ class Airtable:
         output["rows"] = rows
         return output
 
-def addFeedback(self, comments = "None", sourcePage = "None"):
-    """adds feedback directly to the airtable
+    def addFeedback(self, comments = "None", sourcePage = "None"):
+        """adds feedback directly to the airtable
 
-    Args:
-        comments (str): user comment
-        sourcePage (str): source page
+        Args:
+            comments (str): user comment
+            sourcePage (str): source page
 
-    Returns:
-        boolean: True if successful, False if not
-    """
-    endpoint = self.url + "feedback"
-    headers = self.headers
-    headers["Content-Type"] = "application/json"
+        Returns:
+            boolean: True if successful, False if not
+        """
+        endpoint = self.url + "feedback"
+        headers = self.headers
+        headers["Content-Type"] = "application/json"
 
-    data = {
-    "records": [
-            {
-            "fields": {
-                "comments": comments,
-                "source-page": sourcePage
+        data = {
+        "records": [
+                {
+                "fields": {
+                    "comments": comments,
+                    "source-page": sourcePage
+                    }
                 }
-            }
-        ]
-    }
+            ]
+        }
 
-    r = requests.post(endpoint, json=data, headers=headers)
-    return r.status_code == 200
+        r = requests.post(endpoint, json=data, headers=headers)
+        return r.status_code == 200
 
 
 

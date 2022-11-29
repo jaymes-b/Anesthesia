@@ -119,10 +119,11 @@ def handle_block():
 
     return block_data
 
-@app.route('/api/feedback' , methods=["POST"])
+@app.route('/api/feedback' , methods=["POST"]) #/api/feedback?sourcePage=surgery&comments="surgery page is good"
 def handle_feedback():
-    feedback = request.args.get("feedback")
-    return airtable.addFeedback(feedback)
+    sourcePage = request.args.get("sourcePage")
+    comments = request.args.get("comments")
+    return airtable.addFeedback(comments, sourcePage)
 
 
 
