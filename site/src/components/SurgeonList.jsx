@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CapitalizeFirstLetter } from '../helpers/CapitalizeFirstLetter';
 import { AlphabetizeList } from '../helpers/AlphabetizeList';
 import '../views/ListView.css';
-import Spinner from './Spinner';
 
 const SurgeonList = ({ setLoading, setKeyword }) => {
   const [surgeonList, setSurgeonList] = useState([]);
