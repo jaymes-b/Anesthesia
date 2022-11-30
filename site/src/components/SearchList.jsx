@@ -20,7 +20,8 @@ const Search = ({ setLoading, setKeyword, loading }) => {
       .then(res => {
         setBlockList(AlphabetizeList(res.data.blocks_data.rows));
         setSurgeryList(AlphabetizeList(res.data.surgeries_data.rows));
-        setSurgeonsList(AlphabetizeList(res.data.surgeons_data.surgeons_names))
+        setSurgeonsList(AlphabetizeList(res.data.surgeons_data.surgeon_names))
+        
       })
       .finally(() => setLoading(false));
   }

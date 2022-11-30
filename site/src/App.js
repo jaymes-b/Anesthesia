@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ListView from './views/ListView';
 import SurgeryList from './components/SurgeryList';
 import BlockList from './components/BlockList';
@@ -6,7 +6,6 @@ import SurgeonList from './components/SurgeonList';
 import Anatomy from './views/Anatomy';
 import Surgery from './views/Surgery';
 import Block from './views/Block';
-import NotFound from './views/NotFound';
 import Search from './components/SearchList';
 import Surgeon from './views/Surgeon';
 import Feedback from './views/Feedback';
@@ -41,7 +40,7 @@ function App() {
         <Route path="/surgery/:surgeryId" element={<Surgery />} />
         <Route path="/block/:blockId" element={<Block />} />
         <Route path="/surgeon/:surgeonId" element={<Surgeon />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </BrowserRouter>
   );

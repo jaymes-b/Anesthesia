@@ -10,6 +10,7 @@ const Feedback = () => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(DEFAULT_ERROR_MSG);
+  const [sourcePage, setSourcePage] = useState("");
   const [feedback, setFeedback] = useState("");
 
   const submitFeedback = async () => {
@@ -19,7 +20,7 @@ const Feedback = () => {
       setError(true);
     }
     else {
-      await axios.get(`http://127.0.0.1:5000/api/feedback?comments=${feedback}`)
+      await axios.get(`http://127.0.0.1:5000/api/feedback?sourcePage=${sourcePage}&comments=${feedback}`)
       .then(res => {
         if (res) {
           setError(false);
@@ -38,6 +39,18 @@ const Feedback = () => {
   return (
     <div className="feedback-page">
       <h1>Feedback</h1>
+      <p>Feel free to give us your feedback here:</p>
+      <select className="feedback-dropdown" onChange={(e) => { setSourcePage(e.target.value) }} value={sourcePage}>
+        <option value="">-- Select page for feedback --</option>
+        <option value="surgeries">Surgeries list</option>
+        <option value="blocks">Blocks list</option>
+        <option value="surgeons">Surgeons list</option>
+        <option value="anatomy">Anatomy</option>
+        <option value="surgery">Surgery</option>
+        <option value="block">Block</option>
+        <option value="surgeon">Surgeon</option>
+        <option value="other">Other</option>
+      </select>
       <textarea rows="10" onChange={(e) => {setFeedback(e.target.value)}}/>
       <div className="feedback-page-row">
         <button type="button" onClick={submitFeedback}>Submit</button>
