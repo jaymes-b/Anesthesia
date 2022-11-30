@@ -312,7 +312,7 @@ class Airtable:
         query = query.lower()
         surgeon_names = self.getSurgeonNames()["surgeon_names"]
         for name in surgeon_names:
-            if query in name:
+            if query in name.lower():
                 output_names.append(name)
         output_dict["surgeon_names"] = output_names
         return output_dict
