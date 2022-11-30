@@ -1,11 +1,11 @@
 from flask import Flask, request
-# from flask_cors import CORS
+from flask_cors import CORS
 from Airtable import *
 import json
 
 
 app = Flask(__name__)
-# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 airtable = Airtable()
 
 @app.route("/")
@@ -124,7 +124,7 @@ def handle_feedback():
     sourcePage = request.args.get("sourcePage")
     comments = request.args.get("comments")
     airtable.addFeedback(comments, sourcePage)
-    return "true"
+    return "successfully sent feedback to database"
 
 
 
