@@ -127,7 +127,10 @@ def handle_feedback():
     return "successfully sent feedback to database"
 
 
-
+@app.route('/api/feedbacktext') # returns feedback placeholder text
+def handle_feedback_text():
+    feedback_text = airtable.getFeedbackText()
+    return {"feedback_text": feedback_text}
 
 
 if __name__ == "__main__":
