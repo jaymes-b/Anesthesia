@@ -439,4 +439,4 @@ if __name__ == "__main__":
     # airtable.getBlocksbyQuery("knee")
     # print(airtable.getBodyPart())
     # print(airtable.getsBlocksByName("adductor canal"))
-    print(airtable.getFeedbackText())
+    # print(airtable.getFeedbackText())
