@@ -5,7 +5,7 @@ class Airtable:
     def __init__(self):
         api_key = "key46Xfxr0liGO20W"
         self.headers = {"Authorization": "Bearer " + api_key}
-        self.table_names = ["body-part", "block", "surgery", "references", "surgeon-preference", "keywords", "surgeon"]
+        self.table_names = ["body-part", "block", "surgery", "references", "surgeon-preference", "keywords", "surgeon", "feedback", "feedback-text"]
         self.base_id = "app96HBB0IV295BWj"
         self.url = "https://api.airtable.com/v0/" + self.base_id + "/"
 
@@ -409,12 +409,25 @@ class Airtable:
         return r.status_code == 200
 
 
+    def getFeedbackText(self):
+        """ gets feedback placeholder text
+
+        Args: 
+            None
+
+        Returns:
+            str: string of feedback placeholder text
+        """
+
+        url = self.url + self.table_names[8]
+        response = requests.get(url, headers=self.headers)
+        data = response.json()
+        feedback_note_data = data["records"][0]["fields"]["Notes"]
+        return feedback_note_data
 
 
 
         
-
-
 
 
 
@@ -425,4 +438,5 @@ if __name__ == "__main__":
     # print(airtable.getSurgeryNamesBySurgeon("Dean"))
     # airtable.getBlocksbyQuery("knee")
     # print(airtable.getBodyPart())
-    print(airtable.getsBlocksByName("adductor canal"))
+    # print(airtable.getsBlocksByName("adductor canal"))
+    print(airtable.getFeedbackText())
