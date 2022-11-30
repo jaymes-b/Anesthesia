@@ -15,6 +15,7 @@
   overflow: hidden;
   display: grid;
   align-content: center;
+  display: flex;
 }
 .card-image > img {
   width: 100%;
