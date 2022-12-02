@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { CapitalizeFirstLetter } from '../helpers/CapitalizeFirstLetter';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Confirmation from '../components/Confirmation';
@@ -12,6 +13,16 @@ const Feedback = () => {
   const [errorMessage, setErrorMessage] = useState(DEFAULT_ERROR_MSG);
   const [sourcePage, setSourcePage] = useState("");
   const [feedback, setFeedback] = useState("");
+
+  const [feedbackText, setFeedbackText] = useState("");
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:5000/api/feedbacktext")
+      .then(res => {
+        setFeedbackText(CapitalizeFirstLetter(res.data.feedback_text))
+      })
+  }, [])
+  
 
   const submitFeedback = async () => {
     setSubmitted(false);
@@ -39,7 +50,7 @@ const Feedback = () => {
   return (
     <div className="feedback-page">
       <h1>Feedback</h1>
-      <p>Feel free to give us your feedback here:</p>
+      <p>{feedbackText}</p>
       <select className="feedback-dropdown" onChange={(e) => { setSourcePage(e.target.value) }} value={sourcePage}>
         <option value="">-- Select page for feedback --</option>
         <option value="surgeries">Surgeries list</option>
